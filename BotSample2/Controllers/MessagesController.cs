@@ -31,9 +31,26 @@ namespace BotSample2
             return response;
         }
 
-        internal static IDialog<SandwichOrder> MakeRootDialog() {
-            return Chain.From(() => FormDialog.FromForm(SandwichOrder.BuildForm));
+        internal static IDialog<SandwichOrder> MakeRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(SandwichOrder.BuildForm))
+                .Do(async (context, order) =>
+                {
+                    try
+                    {
+                        var completed = await order;
+                        await context.PostAsync("Thank you for visitting.");
+                    }
+                    catch (FormCanceledException<SandwichOrder> e)
+                    {
+                        var item = e.Last;
+                        var form = e.LastForm;
 
+                        var reply = e.InnerException == null ?
+                                  $" Please come again." : " System was troubled. Please try again";
+                        await context.PostAsync(reply);
+                    }
+                });
         }
     }
 }
