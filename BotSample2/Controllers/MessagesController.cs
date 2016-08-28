@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using BotSample2.Dialogs;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
+using Microsoft.Bot.Connector;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.FormFlow;
-using BotSample2.Dialogs;
 
 namespace BotSample2
 {

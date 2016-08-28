@@ -7,18 +7,24 @@ using Microsoft.Bot.Builder.FormFlow;
 namespace BotSample2.Dialogs
 {
     [Serializable]
+    [Template(TemplateUsage.NotUnderstood, "Can't understand \"{0}\", please input again.")]
+    [Template(TemplateUsage.EnumSelectOne,"Which {&} ？{||}",ChoiceStyle=ChoiceStyleOptions.PerLine)]
     public class SandwichOrder
     {
+        [Prompt("Choose yoru {&}? {||}")]
+        [Describe("Sandwich")]
         public SandwichOptions? Sandwich;
+
         public LengthOptions? Length;
         public BreadOptions? Bread;
+        [Optional]
         public CheeseOptions? Cheese;
         public List<ToppingOptions> Toppings;
         public List<SauceOptions> Sauce;
         public static IForm<SandwichOrder> BuildForm()
         {
             return new FormBuilder<SandwichOrder>()
-                    .Message("サンドイッチボットへようこそ♪")
+                    .Message("Welcome to our Sandwich maker Bot")
                     .Build();
         }
     }
@@ -28,6 +34,7 @@ namespace BotSample2.Dialogs
 
     public enum SandwichOptions
     {
+        [Describe("Bacon Lattace Tomato")]
         BLT,
         BlackForestHam,
         BuffaloChicken,
